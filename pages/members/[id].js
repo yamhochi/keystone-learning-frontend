@@ -2,12 +2,12 @@ import { gql } from "@apollo/client";
 import client from "../../helpers/apollo-client";
 import Link from "next/link";
 
-export default function memberDetails({data}) {
 
+export default function memberDetails({data}) {
   return (
     <div>
       <h1> Member detail</h1>
-      <p>{String(data.name)}</p>
+      <p>{data.id}</p>
       {/* <p>{data.email}</p> */}
     </div>  
   )
@@ -55,6 +55,7 @@ export async function getStaticProps({ params }) {
         }
       `,
       variables: { id },
+    //   string:{ name, email}
     });
     
     return {
