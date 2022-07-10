@@ -3,6 +3,7 @@ import client from "../../helpers/apollo-client";
 import Link from "next/link";
 
 
+
 export default function memberDetails({data}) {
 
   return (
