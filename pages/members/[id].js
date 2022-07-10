@@ -7,7 +7,7 @@ export default function memberDetails({data}) {
   return (
     <div>
       <h1> Member detail</h1>
-      <p>{data}</p>
+      {/* <p>{data.name}</p> */}
       {/* <p>{data.email}</p> */}
     </div>  
   )
@@ -55,12 +55,11 @@ export async function getStaticProps({ params }) {
         }
       `,
       variables: { id },
-    //   string:{ name, email}
     });
     
     return {
       props: {
-        data: data.user.name,
+        data: data.user
       },
     };
   }
