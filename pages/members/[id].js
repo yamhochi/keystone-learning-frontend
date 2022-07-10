@@ -2,15 +2,13 @@ import { gql } from "@apollo/client";
 import client from "../../helpers/apollo-client";
 import Link from "next/link";
 
-
-
 export default function memberDetails({data}) {
 
   return (
     <div>
       <h1> Member detail</h1>
-      <p>{data.name}</p>
-      <p>{data.email}</p>
+      <p>{String(data.name)}</p>
+      {/* <p>{data.email}</p> */}
     </div>  
   )
 }
