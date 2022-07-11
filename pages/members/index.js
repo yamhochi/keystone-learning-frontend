@@ -2,7 +2,7 @@ import { gql } from "@apollo/client";
 import client from "../../helpers/apollo-client";
 import Link from "next/link";
 
-export default function Members({data}) {
+export default function Members({ data }) {
 
     return (
         <div>
@@ -35,5 +35,9 @@ export async function getStaticProps() {
         props: {
             data: data.users,
         },
+        // Next.js will attempt to re-generate the page:
+        // - When a request comes in
+        // - At most once every 10 seconds
+        revalidate: 10, // In seconds
     };
 }
