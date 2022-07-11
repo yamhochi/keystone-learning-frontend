@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@apollo/client": "^3.6.9",
-    "@keystone-next/document-renderer": "^5.0.0",
     "graphql": "^16.5.0",
     "next": "12.2.2",
     "react": "18.2.0",
