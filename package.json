@@ -2,6 +2,9 @@
   "name": "keystone-learning-frontend",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "^14.16"
+  },
   "scripts": {
     "dev": "next -p 3001",
     "build": "next build",

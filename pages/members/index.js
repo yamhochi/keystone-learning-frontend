@@ -7,13 +7,13 @@ export default function Members({data}) {
     return (
         <div>
             <h1> List of all members shown here.</h1>
-            {/* {data.map((item) => (
+            {data.map((item) => (
                 <p key={item.id}>
                     <Link href={`/members/${item.id}`}>
                         <a> {item.name} </a>
                     </Link>
                 </p>
-            ))} */}
+            ))}
         </div>
     );
 }
