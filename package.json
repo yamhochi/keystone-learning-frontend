@@ -2,6 +2,7 @@
   "name": "keystone-learning-frontend",
   "version": "0.1.0",
   "private": true,
+  "cacheDirectories": [".next/cache"],
   "engines": {
     "node": "^14.16"
   },
@@ -23,4 +24,5 @@
     "eslint-config-next": "12.2.2"
   }
 }
+
 

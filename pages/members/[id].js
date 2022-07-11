@@ -7,8 +7,8 @@ export default function memberDetails({data}) {
   return (
     <div>
       <h1> Member detail</h1>
-      {/* <p>{data.name}</p> */}
-      {/* <p>{data.email}</p> */}
+      <p>{data.name}</p>
+      <p>{data.email}</p>
     </div>  
   )
 }
