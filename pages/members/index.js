@@ -4,7 +4,7 @@ import Link from "next/link";
 
 
 export default function Members({data}) {
-    console.log(data[0].name)
+    console.log({data})
     return (
         <div>
             <h1> List of all members shown here.</h1>
@@ -18,7 +18,6 @@ export default function Members({data}) {
         </div>
     );
 }
-
 
 export async function getStaticProps() {
     const { data } = await client.query({
