@@ -2,9 +2,8 @@ import { gql } from "@apollo/client";
 import client from "../../helpers/apollo-client";
 import Link from "next/link";
 
-
 export default function Members({data}) {
-    console.log({data})
+
     return (
         <div>
             <h1> List of all members shown here.</h1>
@@ -36,6 +35,5 @@ export async function getStaticProps() {
         props: {
             data: data.users,
         },
-        fallback: false
     };
 }
