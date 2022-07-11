@@ -36,5 +36,6 @@ export async function getStaticProps() {
         props: {
             data: data.users,
         },
+        fallback: false
     };
 }
