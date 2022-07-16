@@ -36,12 +36,14 @@ export async function getStaticProps() {
             }
           }
       `,
-      fetchPolicy: 'network-only'
+    //   fetchPolicy: 'network-only'
     });
 
     await client.refetchQueries({
-        include: "active",
-    });
+        updateCache(cache) {
+          cache.evict({ fieldName: "someRootField" });
+        },
+      });
 
 
     return {
