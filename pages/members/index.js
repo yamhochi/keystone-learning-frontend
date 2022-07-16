@@ -22,7 +22,7 @@ export default function Members({ data, loading, error, updated_data }) {
 }
 
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
 
     const { data } = await client.query({
         query: gql`
@@ -37,6 +37,10 @@ export async function getStaticProps() {
       fetchPolicy: 'network-only',
 
     });
+
+    await client.refetchQueries({
+        include: "active",
+      });
 
     return {
         props: {
