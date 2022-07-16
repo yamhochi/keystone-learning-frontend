@@ -36,7 +36,7 @@ export async function getStaticProps() {
             }
           }
       `,
-    //   fetchPolicy: 'network-only'
+      fetchPolicy: 'no-cache'
     });
 
     await client.refetchQueries({
