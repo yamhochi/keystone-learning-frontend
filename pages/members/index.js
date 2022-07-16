@@ -3,8 +3,10 @@ import client from "../../helpers/apollo-client";
 import Link from "next/link";
 import {useRouter} from 'next/router';
 
-export default function Members({ data, loading, error, updated_data }) {
- 
+export default function Members({ data, loading, error}) {
+    console.log({data})
+
+
     if (loading) return 'Loading...';
     if (error) return `Error! ${error.message}`;
     return (
@@ -22,11 +24,11 @@ export default function Members({ data, loading, error, updated_data }) {
 }
 
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
 
     const { data } = await client.query({
         query: gql`
-        query getUers{
+        query getUsers{
             users {
               id
               name
@@ -34,21 +36,17 @@ export async function getServerSideProps() {
             }
           }
       `,
-      fetchPolicy: 'network-only',
-
+      fetchPolicy: 'network-only'
     });
 
-    // await client.refetchQueries({
-    //     include: "active",
-    //   });
+    await client.refetchQueries({
+        include: "active",
+    });
+
 
     return {
         props: {
             data: data.users,
-            // updated_data: updated_data.users
         },
-    };
-
-    
-    
+    };    
 }
