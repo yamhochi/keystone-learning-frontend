@@ -1,9 +1,12 @@
 import { gql } from "@apollo/client";
 import client from "../../helpers/apollo-client";
 import Link from "next/link";
+import {useRouter} from 'next/router';
 
-export default function Members({ data }) {
-
+export default function Members({ data, loading, error, updated_data }) {
+ 
+    if (loading) return 'Loading...';
+    if (error) return `Error! ${error.message}`;
     return (
         <div>
             <h1> List of all members shown here.</h1>
@@ -18,10 +21,12 @@ export default function Members({ data }) {
     );
 }
 
+
 export async function getStaticProps() {
+
     const { data } = await client.query({
         query: gql`
-        query {
+        query getUers{
             users {
               id
               name
@@ -29,15 +34,17 @@ export async function getStaticProps() {
             }
           }
       `,
+      fetchPolicy: 'network-only',
+
     });
 
     return {
         props: {
             data: data.users,
+            // updated_data: updated_data.users
         },
-        // Next.js will attempt to re-generate the page:
-        // - When a request comes in
-        // - At most once every 10 seconds
-        revalidate: 10, // In seconds
     };
+
+    
+    
 }
