@@ -38,9 +38,9 @@ export async function getServerSideProps() {
 
     });
 
-    await client.refetchQueries({
-        include: "active",
-      });
+    // await client.refetchQueries({
+    //     include: "active",
+    //   });
 
     return {
         props: {
