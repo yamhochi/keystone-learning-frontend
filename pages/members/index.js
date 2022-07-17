@@ -39,11 +39,11 @@ export async function getStaticProps() {
       fetchPolicy: 'no-cache'
     });
 
-    await client.refetchQueries({
-        updateCache(cache) {
-          cache.evict({ fieldName: "someRootField" });
-        },
-      });
+    // await client.refetchQueries({
+    //     updateCache(cache) {
+    //       cache.evict({ fieldName: "someRootField" });
+    //     },
+    //   });
 
 
     return {

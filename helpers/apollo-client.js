@@ -1,8 +1,19 @@
-import { ApolloClient, InMemoryCache } from "@apollo/client";
+import { ApolloClient, InMemoryCache, createHttpLink, } from "@apollo/client";
 
+// const client = new ApolloClient({
+//   uri: process.env.CONNECT_URI,
+//   // uri: "http://localhost:3000/api/graphql",
+//   cache: new InMemoryCache(),
+// });
 const client = new ApolloClient({
-  uri: process.env.CONNECT_URI,
-  // uri: "http://localhost:3000/api/graphql",
+  ssrMode: true,
+  link: createHttpLink({
+    uri: process.env.CONNECT_URI,
+    credentials: 'same-origin',
+    // headers: {
+    //   cookie: request.header('Cookie'),
+    // },
+  }),
   cache: new InMemoryCache(),
 });
 
