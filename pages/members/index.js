@@ -45,10 +45,11 @@ export async function getStaticProps() {
     //     },
     //   });
 
-
     return {
         props: {
             data: data.users,
         },
-    };    
+        revalidate: 1,
+    };
+        
 }
