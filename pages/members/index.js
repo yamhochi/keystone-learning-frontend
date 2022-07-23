@@ -36,7 +36,7 @@ export async function getStaticProps() {
             }
           }
       `,
-      fetchPolicy: 'no-cache'
+      fetchPolicy: 'no-cache' //evaluate this
     });
 
     // await client.refetchQueries({
@@ -49,6 +49,9 @@ export async function getStaticProps() {
         props: {
             data: data.users,
         },
+
+        // this is very important to make sure next cache is re-reading from server
+        // is this the same as overwriting in-memory cache
         revalidate: 1,
     };
         
