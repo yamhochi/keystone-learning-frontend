@@ -2,7 +2,9 @@
   "name": "keystone-learning-frontend",
   "version": "0.1.0",
   "private": true,
-  "cacheDirectories": [".next/cache"],
+  "cacheDirectories": [
+    ".next/cache"
+  ],
   "engines": {
     "node": "^14.16"
   },
@@ -14,6 +16,10 @@
   },
   "dependencies": {
     "@apollo/client": "^3.6.9",
+    "@chakra-ui/react": "^2.3.2",
+    "@emotion/react": "^11",
+    "@emotion/styled": "^11",
+    "framer-motion": "^6",
     "graphql": "^16.5.0",
     "next": "12.2.2",
     "react": "18.2.0",
@@ -24,5 +30,3 @@
     "eslint-config-next": "12.2.2"
   }
 }
-
-

@@ -3,13 +3,13 @@ import client from "../../helpers/apollo-client";
 import Link from "next/link";
 
 
-export default function memberDetails({data}) {
-  console.log(data)
+export default function sessionDetails({data}) {
+
   return (
     <div>
-      <h1> Member detail</h1>
-      <p>{data.name}</p>
-      <p>{data.email}</p>
+      <h1> Session detail</h1>
+      <p>{data.title}</p>
+      <p>{data.date}</p>
     </div>  
   )
 }
@@ -20,17 +20,17 @@ export async function getStaticPaths() {
     const { data } = await client.query({
       query: gql`
         query {
-          users {
+          sessions {
             id
-            name
-            email
+            title
+            date
           }
         }
       `,
     });
 
 // Extract the id properties from the query and store them in the paths array.
-    const paths = data.users.map((item) => ({
+    const paths = data.sessions.map((item) => ({
       params: {
         id: item.id,
       },
@@ -42,17 +42,16 @@ export async function getStaticPaths() {
 
 
 
-// Now fetch just one user...
+// Now fetch just one session...
 export async function getStaticProps({ params }) {
-  console.log('params', params)
     const { id } = params;
     const { data } = await client.query({
       query: gql`
-        query user($id: ID!) {
-          user(where: { id: $id }) {
+        query session($id: ID!) {
+          session(where: { id: $id }) {
             id  
-            name
-            email
+            title
+            date
           }
         }
       `,
@@ -61,7 +60,7 @@ export async function getStaticProps({ params }) {
     
     return {
       props: {
-        data: data.user
+        data: data.session
       },
     };
   }

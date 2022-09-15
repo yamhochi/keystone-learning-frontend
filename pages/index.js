@@ -9,8 +9,11 @@ export default function Home() {
     <div> 
       <h1>Home page </h1>
       <p>
-        <Link href="/members">See the list of members</Link>
-    </p>
+        <Link href="/sessions">See the sessions</Link>
+      </p>
+      <p>
+        <Link href="/members">See the members</Link>
+      </p>
     </div>
   )
 }
