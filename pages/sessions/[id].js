@@ -1,19 +1,43 @@
 import { gql } from "@apollo/client";
 import client from "../../helpers/apollo-client";
 import Link from "next/link";
-import { Input, Container, Text, Button, ButtonGroup, Divider, Stack, Box, Badge, Checkbox } from '@chakra-ui/react'
+import { Input, Container, Text, Button, ButtonGroup, Divider, Stack, Box, Badge, Checkbox, StatHelpText } from '@chakra-ui/react'
 
 
 export default function sessionDetails({ data }) {
     console.log(data.invoices)
     const invoices = data.invoices
+    const dc = "defaultChecked"
 
     //setup function to for badge colour
-    function paidColour(i){
+    function paidColour(i) {
         return i ? 'green' : 'red'
     }
-    
- 
+
+    var truth = ''
+
+    //setup function for changing colour
+    function updatePaidStatus(e, initial) {
+        truth = initial
+        var parentEl = e.target.parentNode
+        var nextEl=parentEl.nextSibling
+        return (truth = e.target.checked, nextEl.innerHTML=truth) //true or false
+
+
+    }
+
+
+    // return e.target.checked
+    //get initial State from server
+    //state = !state
+    //on click, change initial state status
+    //update ccolour
+
+    // var paid = updatePaidStatus
+
+
+
+
     return (
         <div>
             <Container>
@@ -22,15 +46,15 @@ export default function sessionDetails({ data }) {
                     <p>{data.date}</p>
                     <Divider orientation='horizontal' />
                     {invoices.map((item) => (
-                        <Box p='6'>
-                            <Text fontSize='xl' key={item.id}>{item.users.name}</Text>
-                            <Text fontSize='s' key={item.id}>invoice: {item.id}</Text>
-                            <div><Checkbox colorScheme='green' isChecked={item.paid} >Paid</Checkbox>
-                                <Badge ml='1' fontSize='0.8em' colorScheme={paidColour(item.paid)}>
+                        <Box key={item.id} p='6'>
+                            <Text fontSize='xl' >{item.users.name}</Text>
+                            <Text fontSize='s' >invoice: {item.id}</Text>
+                            <div><Checkbox colorScheme='green' /*isChecked= {item.paid}*/ defaultChecked={item.paid} onChange={(e) => (updatePaidStatus(e, item.paid), console.log(truth))}>Paid</Checkbox>
+                                <Badge ml='1' fontSize='0.8em' /*colorScheme={paidColour(item.paid)}*/>
                                     {item.paid.toString()}
                                 </Badge>
                             </div>
-                           
+
                         </Box>
 
                     ))}
