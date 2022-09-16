@@ -7,6 +7,8 @@ import { Input, Container, Text, Button, ButtonGroup, Divider, Stack, Box, Badge
 export default function sessionDetails({ data }) {
     console.log(data.invoices)
     const invoices = data.invoices
+
+    //setup function to for badge colour
     function paidColour(i){
         return i ? 'green' : 'red'
     }
@@ -23,7 +25,7 @@ export default function sessionDetails({ data }) {
                         <Box p='6'>
                             <Text fontSize='xl' key={item.id}>{item.users.name}</Text>
                             <Text fontSize='s' key={item.id}>invoice: {item.id}</Text>
-                            <div><Checkbox colorScheme='green' >Paid</Checkbox>
+                            <div><Checkbox colorScheme='green' isChecked={item.paid} >Paid</Checkbox>
                                 <Badge ml='1' fontSize='0.8em' colorScheme={paidColour(item.paid)}>
                                     {item.paid.toString()}
                                 </Badge>
