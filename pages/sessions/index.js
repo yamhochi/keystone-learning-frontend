@@ -3,6 +3,7 @@ import client from "../../helpers/apollo-client";
 import Link from "next/link";
 import { useRouter } from 'next/router';
 
+
 export default function Sessions({ data, loading, error }) {
     console.log({ data })
 
@@ -19,7 +20,7 @@ export default function Sessions({ data, loading, error }) {
                     </Link>
                 </p>
             ))}
-        </div>
+        </div>   
     );
 }
 
