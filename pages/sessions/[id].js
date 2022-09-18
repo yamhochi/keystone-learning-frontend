@@ -5,37 +5,18 @@ import { Input, Container, Text, Button, ButtonGroup, Divider, Stack, Box, Badge
 
 
 export default function sessionDetails({ data }) {
-    console.log(data.invoices)
+   
     const invoices = data.invoices
-    const dc = "defaultChecked"
-
-    //setup function to for badge colour
-    function paidColour(i) {
-        return i ? 'green' : 'red'
-    }
-
-    var truth = ''
-
+    console.log(invoices)
+    
+    var truth
     //setup function for changing colour
     function updatePaidStatus(e, initial) {
         truth = initial
         var parentEl = e.target.parentNode
         var nextEl=parentEl.nextSibling
         return (truth = e.target.checked, nextEl.innerHTML=truth) //true or false
-
-
     }
-
-
-    // return e.target.checked
-    //get initial State from server
-    //state = !state
-    //on click, change initial state status
-    //update ccolour
-
-    // var paid = updatePaidStatus
-
-
 
 
     return (
