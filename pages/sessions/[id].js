@@ -1,23 +1,38 @@
-import { gql } from "@apollo/client";
+import { gql, useMutation, } from "@apollo/client";
 import client from "../../helpers/apollo-client";
 import Link from "next/link";
 import { Input, Container, Text, Button, ButtonGroup, Divider, Stack, Box, Badge, Checkbox, StatHelpText } from '@chakra-ui/react'
 
+    //const = define the mutation
+        // const UPDATE_PAID_STATUS_MUTATION = gql`
+        // mutation UPDATE_PAID_STATUS_MUTATION ($id:ID!, $paid:Boolean){
+        //     updateInvoice( where: {id: $id} data:{paid: $paid}){
+        //         id 
+        //         paid  
+        //     }
+        //  }
+        // `;
+    
+    
+export default function sessionDetails({data}) {
 
-export default function sessionDetails({ data }) {
-   
+
     const invoices = data.invoices
     console.log(invoices)
-    
+
+    // const [ updateInvoice, { data: updateData, error: updateError, loading: updateLoading }] = useMutation(
+    //     UPDATE_PAID_STATUS_MUTATION
+    // );
+
+
     var truth
     //setup function for changing colour
     function updatePaidStatus(e, initial) {
         truth = initial
         var parentEl = e.target.parentNode
-        var nextEl=parentEl.nextSibling
-        return (truth = e.target.checked, nextEl.innerHTML=truth) //true or false
+        var nextEl = parentEl.nextSibling
+        return (truth = e.target.checked, nextEl.innerHTML = truth) //true or false
     }
-
 
     return (
         <div>
@@ -30,7 +45,20 @@ export default function sessionDetails({ data }) {
                         <Box key={item.id} p='6'>
                             <Text fontSize='xl' >{item.users.name}</Text>
                             <Text fontSize='s' >invoice: {item.id}</Text>
-                            <div><Checkbox colorScheme='green' /*isChecked= {item.paid}*/ defaultChecked={item.paid} onChange={(e) => (updatePaidStatus(e, item.paid), console.log(truth))}>Paid</Checkbox>
+                            <div>
+                                <Checkbox
+                                    colorScheme='green'
+                                    defaultChecked={item.paid}
+                                    onChange={async (e) => (
+                                        updatePaidStatus(e, item.paid),
+                                        item.paid = !item.paid,
+                                        // await updateInvoice({ variables: { id, paid: item.paid } }),
+                                        console.log(item.paid)
+                                    )
+                                    } 
+                                >
+                                    Paid
+                                </Checkbox>
                                 <Badge ml='1' fontSize='0.8em' /*colorScheme={paidColour(item.paid)}*/>
                                     {item.paid.toString()}
                                 </Badge>
@@ -102,9 +130,10 @@ export async function getStaticProps({ params }) {
         variables: { id },
     });
 
+
     return {
         props: {
-            data: data.session,
+            data: data.session, 
         }
     };
 }
