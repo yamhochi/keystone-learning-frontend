@@ -1,5 +1,5 @@
 import { gql } from "@apollo/client";
-import client from "../../helpers/apollo-client";
+import {createApolloClient} from "../../helpers/apollo-client";
 import Link from "next/link";
 import { useRouter } from 'next/router';
 
@@ -26,6 +26,7 @@ export default function Sessions({ data, loading, error }) {
 
 
 export async function getStaticProps() {
+    const client = createApolloClient();
 
     const { data } = await client.query({
         query: gql`

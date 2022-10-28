@@ -1,5 +1,5 @@
 import { gql, useMutation, } from "@apollo/client";
-import client from "../../helpers/apollo-client";
+import {createApolloClient} from "../../helpers/apollo-client";
 import Link from "next/link";
 import { Input, Container, Text, Button, ButtonGroup, Divider, Stack, Box, Badge, Checkbox, StatHelpText } from '@chakra-ui/react'
 
@@ -84,6 +84,7 @@ export default function sessionDetails({data}) {
 }
 
 export async function getStaticPaths() {
+    const client = createApolloClient();
 
     // Perform a GraphQL query to fetch all of the id fields from the users table and store the result in the data variable.
     const { data } = await client.query({
@@ -111,7 +112,9 @@ export async function getStaticPaths() {
 
 // Now fetch just one session...
 export async function getStaticProps({ params }) {
-    const { id } = params;
+    const { id } = params;  
+    const client = createApolloClient();
+
     const { data } = await client.query({
         query: gql`
         query session($id: ID!) {

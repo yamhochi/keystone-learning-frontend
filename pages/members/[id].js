@@ -1,5 +1,5 @@
 import { gql } from "@apollo/client";
-import client from "../../helpers/apollo-client";
+import {createApolloClient} from "../../helpers/apollo-client";
 import Link from "next/link";
 
 
@@ -15,6 +15,7 @@ export default function memberDetails({data}) {
 }
 
 export async function getStaticPaths() {
+  const client = createApolloClient();
 
 // Perform a GraphQL query to fetch all of the id fields from the users table and store the result in the data variable.
     const { data } = await client.query({
