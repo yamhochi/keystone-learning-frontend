@@ -47,6 +47,7 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   console.log('params', params)
     const { id } = params;
+    const client = createApolloClient();
     const { data } = await client.query({
       query: gql`
         query user($id: ID!) {

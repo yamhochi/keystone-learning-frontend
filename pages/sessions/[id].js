@@ -1,32 +1,43 @@
-import { gql, useMutation, } from "@apollo/client";
-import {createApolloClient} from "../../helpers/apollo-client";
+import { gql} from "@apollo/client";
+import { createApolloClient } from "../../helpers/apollo-client";
 import Link from "next/link";
-import { Input, Container, Text, Button, ButtonGroup, Divider, Stack, Box, Badge, Checkbox, StatHelpText } from '@chakra-ui/react'
+import HookForm from './HookForm'
+import { Input, Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator, Container, Text, Button, ButtonGroup, Divider, Stack, Box, Badge, Checkbox, StatHelpText } from '@chakra-ui/react'
 
-    //const = define the mutation
-        // const UPDATE_PAID_STATUS_MUTATION = gql`
-        // mutation UPDATE_PAID_STATUS_MUTATION ($id:ID!, $paid:Boolean){
-        //     updateInvoice( where: {id: $id} data:{paid: $paid}){
-        //         id 
-        //         paid  
-        //     }
-        //  }
-        // `;
-    
-    
-export default function sessionDetails({data}) {
+
+export default function sessionDetails({ data }) {
 
 
     const invoices = data.invoices
     console.log(invoices)
+    const client = createApolloClient()
 
-    // const [ updateInvoice, { data: updateData, error: updateError, loading: updateLoading }] = useMutation(
-    //     UPDATE_PAID_STATUS_MUTATION
-    // );
+    var pid, pstatus
+    //update paid status backend
+    const updateUserMutation = () => {
+        return client.mutate({
+            mutation: gql`  
+             mutation updateInvoiceMutation ($id:ID!, $payments:InvoiceUpdateInput!){
+                updateInvoice( where: {id: $id} data:$payments){
+                    id 
+                    paid
+                }
+              }
+            `,
+            variables: {
+                id: pid, payments: {
+                    "paid": pstatus
+                }
+            }
+
+        })
+            .then(result => { console.log(result) })
+            .catch(error => { console.log(error) });
+    }
 
 
     var truth
-    //setup function for changing colour
+    //setup function for changing badge
     function updatePaidStatus(e, initial) {
         truth = initial
         var parentEl = e.target.parentNode
@@ -35,51 +46,66 @@ export default function sessionDetails({data}) {
     }
 
     return (
-        <div>
-            <Container>
+        <Container>
+            <Box w='100%' py={8}>
+                <Breadcrumb>
+                    <BreadcrumbItem>
+                        <BreadcrumbLink href='../'>Home</BreadcrumbLink>
+                    </BreadcrumbItem>
+
+                    <BreadcrumbItem>
+                        <BreadcrumbLink href='./'>Sessions</BreadcrumbLink>
+                    </BreadcrumbItem>
+
+                    <BreadcrumbItem isCurrentPage>
+                        <BreadcrumbLink href='#'>{data.title}</BreadcrumbLink>
+                    </BreadcrumbItem>
+                </Breadcrumb>
+            </Box>
+
+
+            <Stack spacing={3}>
+                <Text fontSize='3xl'>{data.title}</Text>
+                <p>{data.date}</p>
+                <Divider orientation='horizontal' />
+                {invoices.map((item) => (
+                    
+                    <Box key={item.id} p='6'>
+                        <Text fontSize='xl' >{item.users.name}</Text>
+                        <Text fontSize='s' >invoice: {item.id}</Text>
+                        <div>
+                            <Checkbox
+                                colorScheme='green'
+                                defaultChecked={item.paid}
+                                onChange={async (e) => (
+                                    updatePaidStatus(e, item.paid),
+                                    item.paid = !item.paid,
+                                    pstatus = item.paid,
+                                    pid = item.id,
+                                    await updateUserMutation(),
+                                    console.log(pid, pstatus)
+                                )
+                                }
+                            >
+                                Paid
+                            </Checkbox>
+                            <Badge ml='1' fontSize='0.8em' /*colorScheme={paidColour(item.paid)}*/>
+                                {item.paid.toString()}
+                            </Badge>
+                        </div>
+                    </Box>
+
+                ))}
                 <Stack spacing={3}>
-                    <Text fontSize='3xl'>{data.title}</Text>
-                    <p>{data.date}</p>
                     <Divider orientation='horizontal' />
-                    {invoices.map((item) => (
-                        <Box key={item.id} p='6'>
-                            <Text fontSize='xl' >{item.users.name}</Text>
-                            <Text fontSize='s' >invoice: {item.id}</Text>
-                            <div>
-                                <Checkbox
-                                    colorScheme='green'
-                                    defaultChecked={item.paid}
-                                    onChange={async (e) => (
-                                        updatePaidStatus(e, item.paid),
-                                        item.paid = !item.paid,
-                                        // await updateInvoice({ variables: { id, paid: item.paid } }),
-                                        console.log(item.paid)
-                                    )
-                                    } 
-                                >
-                                    Paid
-                                </Checkbox>
-                                <Badge ml='1' fontSize='0.8em' /*colorScheme={paidColour(item.paid)}*/>
-                                    {item.paid.toString()}
-                                </Badge>
-                            </div>
-
-                        </Box>
-
-                    ))}
-                    <Stack spacing={3}>
-                        <Divider orientation='horizontal' />
-                        <Container>
-                            <Text fontSize='xl'>Just rocked up?</Text>
-                            <Text mb='8px'>Name:</Text>
-                            <Input placeholder='name' />
-                            <Button colorScheme='blue'>Submit</Button>
-                        </Container>
+                    <Stack spacing={3} >
+                        <Text fontSize='xl'>Just rocked up?</Text>
+                                <HookForm />
                     </Stack>
                 </Stack>
-            </Container>
+            </Stack>
+        </Container>
 
-        </div>
     )
 }
 
@@ -108,11 +134,9 @@ export async function getStaticPaths() {
     return { paths, fallback: false };
 }
 
-
-
 // Now fetch just one session...
 export async function getStaticProps({ params }) {
-    const { id } = params;  
+    const { id } = params;
     const client = createApolloClient();
 
     const { data } = await client.query({
@@ -136,7 +160,7 @@ export async function getStaticProps({ params }) {
 
     return {
         props: {
-            data: data.session, 
+            data: data.session,
         }
     };
 }

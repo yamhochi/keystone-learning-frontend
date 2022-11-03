@@ -1,5 +1,5 @@
 import { gql, useMutation } from "@apollo/client";
-import {createApolloClient} from "../helpers/apollo-client"
+import { createApolloClient } from "../helpers/apollo-client"
 import { Container, Text, Button } from '@chakra-ui/react'
 
 // const = define the mutation
@@ -13,22 +13,10 @@ mutation UPDATE_PAID_STATUS_MUTATION ($id:ID!, $paid:Boolean!){
 `
 
 
-// const CREATE_USER = gql`
-// mutation CREATE_USER_MUTATION ($name:String, $email:String){
-//     createUser( data:{name:$name, email:$email}){
-//         name
-//         email
-//     }
-//  }`
-
-
- 
-
-
 export default function Test() {
-    const client = createApolloClient();// this won't work
-    const name = "test11"
-    const email = "@dfdfdfd"
+    const client = createApolloClient();// this works after updating next uri
+    // const name = "test11"
+    // const email = "@dfdfdfd"
 
     const updateUserMutation = () => {
         return client.mutate({
@@ -41,13 +29,15 @@ export default function Test() {
                 }
               }
             `,
-          variables: {id:"4304d225-9dfd-4bf2-8d85-c54086380214",payments:{
-            "paid": true
-          }}
-          
+            variables: {
+                id: "4304d225-9dfd-4bf2-8d85-c54086380214", payments: {
+                    "paid": true
+                }
+            }
+
         })
-        .then(result => { console.log(result)})
-        .catch(error => { console.log(error) });
+            .then(result => { console.log(result) })
+            .catch(error => { console.log(error) });
     }
 
     const onClickHandler = async (e) => {
@@ -56,7 +46,7 @@ export default function Test() {
     }
     // const [createUser , { data, loading, error }] = useMutation(CREATE_USER, {variables: { name, email } })
 
-    
+
     return (
 
 
