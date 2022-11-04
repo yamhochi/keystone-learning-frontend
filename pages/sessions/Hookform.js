@@ -5,6 +5,7 @@ import {
     FormControl,
     Input,
     Button,
+    Stack
 } from '@chakra-ui/react'
 import { createApolloClient } from "../../helpers/apollo-client";
 import { gql} from "@apollo/client";
@@ -60,31 +61,13 @@ export default function HookForm(data) {
         input_name = values.name
         console.log(input_email, input_name)
         await createInvoiceMutation()
+        window.location.reload()
+         // asynchronously reset your form values
     }
-    // function onSubmit(values) {
-    //     input_email  = values.email
-    //     input_name = values.name
-    //     console.log(input_email, input_name)
-    //    async()=>(
-        
-            
-    //         await createInvoiceMutation()
-            
-    //         )
-        // return new Promise((resolve) => {
-            
-        //     // resolve()
-        //     setTimeout(() => {
-        //         console.log(values, {sessionid}),
-                
-        //         // alert(JSON.stringify(values, null, 2))
-        //         resolve()
-        //     }, 1000)
-        // })
-    // }
-
+    
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
+            <Stack spacing={3}>
             <FormControl isInvalid={errors.name}>
                 <FormLabel htmlFor='name'>First name</FormLabel>
                 <Input
@@ -107,12 +90,14 @@ export default function HookForm(data) {
                     {...register('email', {
                         required: 'This is required',
                         minLength: { value: 1, message: 'Minimum length should be 4' },
+                        pattern: { value: /@/, message: 'Email should contain "@"' },
                     })}
                 />
                 <FormErrorMessage>
                     {errors.email && errors.email.message}
                 </FormErrorMessage>
             </FormControl>
+            </Stack>
             <Button mt={4} colorScheme='teal' isLoading={isSubmitting} type='submit'>
                 Submit
             </Button>

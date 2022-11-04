@@ -53,6 +53,7 @@ export default function sessionDetails({ data }) {
                         <BreadcrumbLink href='../'>Home</BreadcrumbLink>
                     </BreadcrumbItem>
 
+
                     <BreadcrumbItem>
                         <BreadcrumbLink href='./'>Sessions</BreadcrumbLink>
                     </BreadcrumbItem>
