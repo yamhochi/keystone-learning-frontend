@@ -100,7 +100,7 @@ export default function sessionDetails({ data }) {
                     <Divider orientation='horizontal' />
                     <Stack spacing={3} >
                         <Text fontSize='xl'>Just rocked up?</Text>
-                                <HookForm />
+                                <HookForm vars={data}/>
                     </Stack>
                 </Stack>
             </Stack>
