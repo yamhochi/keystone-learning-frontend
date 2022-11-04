@@ -22,16 +22,16 @@ export default function Sessions({ data, loading, error }) {
                         <BreadcrumbLink href='#'>All social sessions</BreadcrumbLink>
                     </BreadcrumbItem>
                 </Breadcrumb>
-            
-                </Box>   
+
+            </Box>
             <Text fontSize='3xl' py='2'>All social sessions</Text>
             <Stack spacing={1}>
-            {data.map((item) => (
-                
+                {data.map((item) => (
+
                     <Link href={`/sessions/${item.id}`} key={item.id}>
                         <a> <Container borderRadius='md' backgroundColor='#EDF2F7' p='2'>{item.title} </Container></a>
                     </Link>
-            ))}
+                ))}
             </Stack>
         </Container>
     );

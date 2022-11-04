@@ -1,16 +1,37 @@
 import { gql } from "@apollo/client";
 import {createApolloClient} from "../../helpers/apollo-client";
 import Link from "next/link";
+import { Input, Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator, Container, Heading, LinkBox, LinkOverlay, Text, Button, ButtonGroup, Divider, Stack, Box, Badge, Checkbox, StatHelpText, StackItem } from '@chakra-ui/react'
+
 
 
 export default function memberDetails({data}) {
   console.log(data)
   return (
-    <div>
-      <h1> Member detail</h1>
-      <p>{data.name}</p>
-      <p>{data.email}</p>
-    </div>  
+    <Container>
+            <Box w='100%' py={8}>
+                <Breadcrumb>
+                    <BreadcrumbItem>
+                        <BreadcrumbLink href='../'>Home</BreadcrumbLink>
+                    </BreadcrumbItem>
+
+
+                    <BreadcrumbItem>
+                        <BreadcrumbLink href='./'>Members</BreadcrumbLink>
+                    </BreadcrumbItem>
+
+                    <BreadcrumbItem isCurrentPage>
+                        <BreadcrumbLink href='#'>{data.name}</BreadcrumbLink>
+                    </BreadcrumbItem>
+                </Breadcrumb>
+            </Box>
+            <Stack spacing={3}>
+                <Heading size='lg' my='2'>{data.name}</Heading>
+                <Text>{data.email}</Text>
+                <Divider orientation='horizontal' />
+                </Stack>
+      
+    </Container>  
   )
 }
 

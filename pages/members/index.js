@@ -1,25 +1,42 @@
 import { gql } from "@apollo/client";
-import {createApolloClient} from "../../helpers/apollo-client";
+import { createApolloClient } from "../../helpers/apollo-client";
 import Link from "next/link";
-import {useRouter} from 'next/router';
+import { useRouter } from 'next/router';
+import { Input, Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator, Container, Heading, LinkBox, LinkOverlay, Text, Button, ButtonGroup, Divider, Stack, Box, Badge, Checkbox, StatHelpText, StackItem } from '@chakra-ui/react'
 
-export default function Members({ data, loading, error}) {
-    console.log({data})
+export default function Members({ data, loading, error }) {
+    console.log({ data })
 
 
     if (loading) return 'Loading...';
     if (error) return `Error! ${error.message}`;
     return (
-        <div>
-            <h1> List of all members shown here.</h1>
-            {data.map((item) => (
-                <p key={item.id}>
-                    <Link href={`/members/${item.id}`}>
-                        <a> {item.name} </a>
-                    </Link>
-                </p>
-            ))}
-        </div>
+        <Container>
+            <Box w='100%' py={8}>
+                <Breadcrumb>
+                    <BreadcrumbItem>
+                        <BreadcrumbLink href='./'>Home</BreadcrumbLink>
+                    </BreadcrumbItem>
+
+                    <BreadcrumbItem isCurrentPage>
+                        <BreadcrumbLink href='#'>Members</BreadcrumbLink>
+                    </BreadcrumbItem>
+                </Breadcrumb>
+
+            </Box>
+
+                <Heading size='lg' my='2'>All members</Heading>
+                <Stack spacing={1}>
+                {data.map((item) => (
+                    <LinkBox as='Item' key={item.id} maxW='lg' p='2' borderWidth='1px' rounded='md' backgroundColor='#EDF2F7'>
+                        <LinkOverlay href={`/members/${item.id}`}>
+                            {item.name}
+                        </LinkOverlay>
+                    </LinkBox>
+
+                ))}
+            </Stack>
+        </Container>
     );
 }
 
@@ -37,7 +54,7 @@ export async function getStaticProps() {
             }
           }
       `,
-      fetchPolicy: 'no-cache' //evaluate this
+        fetchPolicy: 'no-cache' //evaluate this
     });
 
     // await client.refetchQueries({
@@ -55,5 +72,5 @@ export async function getStaticProps() {
         // is this the same as overwriting in-memory cache
         revalidate: 1,
     };
-        
+
 }
