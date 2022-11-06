@@ -1,7 +1,7 @@
 import { gql} from "@apollo/client";
 import { createApolloClient } from "../../helpers/apollo-client";
 import Link from "next/link";
-import HookForm from './HookForm'
+import HookForm from './Hookform'
 import { Input, Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator, Container, Text, Button, ButtonGroup, Divider, Stack, Box, Badge, Checkbox, StatHelpText } from '@chakra-ui/react'
 
 
