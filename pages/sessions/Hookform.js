@@ -12,7 +12,7 @@ import { gql} from "@apollo/client";
 
 
 export default function HookForm(data) {
-    var sessionid = data.vars.id
+    // var sessionid = data.vars.id
     var input_name,input_email
     //define the query
     const client = createApolloClient()
@@ -34,7 +34,7 @@ export default function HookForm(data) {
                 "details":
                 {
                     "paid": false,
-                    "sessions": { "connect": { "id": sessionid } }, //update id
+                    "sessions": { "connect": { "id": data.vars.id } }, //update id
                     "users": {
                         "create": {
                             "name": input_name, //capture input name
