@@ -13,7 +13,7 @@ import { gql} from "@apollo/client";
 
 export default function HookForm(data) {
     // var sessionid = data.vars.id
-    var input_name,input_email
+    var input_name,input_email, session_id
     //define the query
     const client = createApolloClient()
     const createInvoiceMutation = () => {
@@ -34,7 +34,7 @@ export default function HookForm(data) {
                 "details":
                 {
                     "paid": false,
-                    "sessions": { "connect": { "id": data.vars.id } }, //update id
+                    "sessions": { "connect": { "id": session_id } }, //update id
                     "users": {
                         "create": {
                             "name": input_name, //capture input name
@@ -45,7 +45,7 @@ export default function HookForm(data) {
             }
 
         })
-            .then(result => { console.log(result) })
+            .then(result => { console.log(result),window.location.reload() })
             .catch(error => { console.log(error) });
     }
 
@@ -57,11 +57,12 @@ export default function HookForm(data) {
     } = useForm()
 
     const onSubmit = async (values) => {
+        session_id = data.vars.id
         input_email  = values.email
         input_name = values.name
-        console.log(input_email, input_name)
+        console.log(input_email, input_name, session_id)
         await createInvoiceMutation()
-        window.location.reload()
+        // window.location.reload()
          // asynchronously reset your form values
     }
     
