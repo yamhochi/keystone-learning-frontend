@@ -1,17 +1,5 @@
 import { ApolloClient, InMemoryCache, createHttpLink, ApolloProvider } from "@apollo/client";
 
-const defaultOptions = {
-  watchQuery: {
-    // fetchPolicy: "cache-and-network",
-    fetchPolicy: "no-cache",
-    errorPolicy: "ignore",
-  },
-  query: {
-    // fetchPolicy: "network-only",
-    fetchPolicy: "no-cache",
-    errorPolicy: "all",
-  },
-};
 
 export function createApolloClient() {
   const client = new ApolloClient({
@@ -21,14 +9,6 @@ export function createApolloClient() {
       credentials: 'same-origin',
     }),
     cache: new InMemoryCache(),
-    fetchOptions: {
-      mode: 'no-cors',
-    },
-    headers: {
-      'Access-Control-Allow-Origin': 'https://keystone-learning-frontend.herokuapp.com/',
-      'Access-Control-Allow-Credentials': true,    
-    },
-    defaultOptions,
   });
 
   return client;
