@@ -6,7 +6,7 @@ import { Input, Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator,
 
 
 
-export default function memberDetails({data}) {
+export default function MemberDetails({data}) {
   console.log(data)
   const router = useRouter()
 
