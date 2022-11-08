@@ -18,9 +18,12 @@ export function createApolloClient() {
     ssrMode: typeof window === 'undefined',
     link: createHttpLink({
       uri: process.env.NEXT_PUBLIC_API_URL,
-      // credentials: 'same-origin',
+      credentials: 'same-origin',
     }),
     cache: new InMemoryCache(),
+    fetchOptions: {
+      mode: 'no-cors',
+    },
     defaultOptions,
   });
 
