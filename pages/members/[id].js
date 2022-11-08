@@ -54,14 +54,14 @@ export async function getStaticProps({ params }) {
         }
       `,
       variables: { id },
-      fetchPolicy: 'no-cache' //evaluate this
+      // fetchPolicy: 'no-cache' //evaluate this
     });
     
     return {
       props: {
         data: data.user
       },
-      revalidate: 1,
+      // revalidate: 1,
     };
   }
 
@@ -92,8 +92,7 @@ export async function getStaticPaths() {
 // Send these id’s to Next. We have also set the fallback property to false  
     return { 
       paths, 
-      // revalidate: 1,
-      fallback: false };
+      fallback: true };
   }
 
 
