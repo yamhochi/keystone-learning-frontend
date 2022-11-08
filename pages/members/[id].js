@@ -1,12 +1,20 @@
 import { gql } from "@apollo/client";
 import {createApolloClient} from "../../helpers/apollo-client";
 import Link from "next/link";
+import { useRouter } from 'next/router'
 import { Input, Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator, Container, Heading, LinkBox, LinkOverlay, Text, Button, ButtonGroup, Divider, Stack, Box, Badge, Checkbox, StatHelpText, StackItem } from '@chakra-ui/react'
 
 
 
 export default function memberDetails({data}) {
   console.log(data)
+  const router = useRouter()
+
+  if (router.isFallback) {
+    return <div>Loading...</div>
+  }
+
+
   return (
     <Container>
             <Box w='100%' py={8}>
@@ -65,7 +73,7 @@ export async function getStaticPaths() {
 // Send these id’s to Next. We have also set the fallback property to false  
     return { 
       paths, 
-      fallback: false };
+      fallback: true };
   }
 
 

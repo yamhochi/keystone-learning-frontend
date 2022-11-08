@@ -7,7 +7,6 @@ import { Input, Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator,
 export default function Members({ data, loading, error }) {
     console.log({ data })
 
-
     if (loading) return 'Loading...';
     if (error) return `Error! ${error.message}`;
     return (
