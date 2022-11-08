@@ -80,6 +80,7 @@ export async function getStaticProps({ params }) {
         }
       `,
       variables: { id },
+      fetchPolicy: 'no-cache' //evaluate this
     });
     
     return {
