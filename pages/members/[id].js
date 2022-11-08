@@ -49,6 +49,7 @@ export async function getStaticPaths() {
           }
         }
       `,
+      fetchPolicy: 'no-cache' //evaluate this
     });
 
 // Extract the id properties from the query and store them in the paths array.
@@ -59,7 +60,10 @@ export async function getStaticPaths() {
     }));
   
 // Send these id’s to Next. We have also set the fallback property to false  
-    return { paths, fallback: false };
+    return { 
+      paths, 
+      revalidate: 1,
+      fallback: false };
   }
 
 
