@@ -65,7 +65,7 @@ export async function getStaticPaths() {
 // Send these id’s to Next. We have also set the fallback property to false  
     return { 
       paths, 
-      fallback: true };
+      fallback: false };
   }
 
 
