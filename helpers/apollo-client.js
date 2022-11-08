@@ -25,7 +25,7 @@ export function createApolloClient() {
       mode: 'no-cors',
     },
     headers: {
-      'Access-Control-Allow-Origin': 'https://deploy-learn-keystone.herokuapp.com/',
+      'Access-Control-Allow-Origin': 'https://keystone-learning-frontend.herokuapp.com/',
       'Access-Control-Allow-Credentials': true,    
     },
     defaultOptions,
