@@ -45,7 +45,7 @@ export default function HookForm(data) {
             }
 
         })
-            .then(result => { console.log(result)
+            .then(result => { console.log(result),
                 window.location.reload()
              })
             .catch(error => { console.log(error) });
