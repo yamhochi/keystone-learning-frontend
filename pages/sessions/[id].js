@@ -59,7 +59,7 @@ export default function sessionDetails({ data }) {
                     </BreadcrumbItem>
 
                     <BreadcrumbItem isCurrentPage>
-                        <BreadcrumbLink href='#'>{data.title}</BreadcrumbLink>
+                        <BreadcrumbLink href='/'>{data.title}</BreadcrumbLink>
                     </BreadcrumbItem>
                 </Breadcrumb>
             </Box>
