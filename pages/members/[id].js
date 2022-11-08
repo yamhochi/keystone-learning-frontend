@@ -35,6 +35,36 @@ export default function memberDetails({data}) {
   )
 }
 
+
+
+
+// Now fetch just one user...
+export async function getStaticProps({ params }) {
+  console.log('params', params)
+    const { id } = params;
+    const client = createApolloClient();
+    const { data } = await client.query({
+      query: gql`
+        query user($id: ID!) {
+          user(where: { id: $id }) {
+            id  
+            name
+            email
+          }
+        }
+      `,
+      variables: { id },
+      fetchPolicy: 'no-cache' //evaluate this
+    });
+    
+    return {
+      props: {
+        data: data.user
+      },
+      revalidate: 1,
+    };
+  }
+
 export async function getStaticPaths() {
   const client = createApolloClient();
 
@@ -67,30 +97,29 @@ export async function getStaticPaths() {
   }
 
 
-
 // Now fetch just one user...
-export async function getStaticProps({ params }) {
-  console.log('params', params)
-    const { id } = params;
-    const client = createApolloClient();
-    const { data } = await client.query({
-      query: gql`
-        query user($id: ID!) {
-          user(where: { id: $id }) {
-            id  
-            name
-            email
-          }
-        }
-      `,
-      variables: { id },
-      fetchPolicy: 'no-cache' //evaluate this
-    });
+// export async function getStaticProps({ params }) {
+//   console.log('params', params)
+//     const { id } = params;
+//     const client = createApolloClient();
+//     const { data } = await client.query({
+//       query: gql`
+//         query user($id: ID!) {
+//           user(where: { id: $id }) {
+//             id  
+//             name
+//             email
+//           }
+//         }
+//       `,
+//       variables: { id },
+//       fetchPolicy: 'no-cache' //evaluate this
+//     });
     
-    return {
-      props: {
-        data: data.user
-      },
-      revalidate: 1,
-    };
-  }
+//     return {
+//       props: {
+//         data: data.user
+//       },
+//       revalidate: 1,
+//     };
+//   }
