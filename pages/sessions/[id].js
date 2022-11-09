@@ -7,16 +7,15 @@ import { Input, Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator,
 
 
 export default function SessionDetails({ data }) {
-
-
-    const invoices = data.invoices
-    console.log(invoices)
     const router = useRouter()
 
     if (router.isFallback) {
         return <div>Loading...</div>
     }
     const client = createApolloClient()
+
+    const invoices = data.invoices
+    console.log(invoices)
 
     var pid, pstatus
     //update paid status backend
@@ -50,7 +49,7 @@ export default function SessionDetails({ data }) {
         var nextEl = parentEl.nextSibling
         return (truth = e.target.checked, nextEl.innerHTML = truth) //true or false
     }
-
+    
     return (
         <Container>
             <Box w='100%' py={8}>
@@ -140,7 +139,7 @@ export async function getStaticPaths() {
     // Send these id’s to Next. We have also set the fallback property to false  
     return { 
         paths, 
-        fallback: false };
+        fallback: true };
 }
 
 // Now fetch just one session...
