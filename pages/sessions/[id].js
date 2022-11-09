@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 import { Input, Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator, Container, Text, Button, ButtonGroup, Divider, Stack, Box, Badge, Checkbox, StatHelpText } from '@chakra-ui/react'
 
 
-export default function sessionDetails({ data }) {
+export default function SessionDetails({ data }) {
 
 
     const invoices = data.invoices
