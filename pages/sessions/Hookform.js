@@ -9,9 +9,11 @@ import {
 } from '@chakra-ui/react'
 import { createApolloClient } from "../../helpers/apollo-client";
 import { gql} from "@apollo/client";
+import { useRouter } from 'next/router';
 
 
 export default function HookForm(data) {
+    const router = useRouter()
     // var sessionid = data.vars.id
     var input_name,input_email, session_id
     //define the query
@@ -62,7 +64,7 @@ export default function HookForm(data) {
         input_name = values.name
         console.log(input_email, input_name, session_id)
         await createInvoiceMutation()
-        window.location.reload()
+        router.reload(window.location.pathname)
         // window.location.reload()
          // asynchronously reset your form values
     }
