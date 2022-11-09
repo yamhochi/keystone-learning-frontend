@@ -1,7 +1,8 @@
-import { gql} from "@apollo/client";
+import { gql } from "@apollo/client";
 import { createApolloClient } from "../../helpers/apollo-client";
 import Link from "next/link";
 import HookForm from './Hookform'
+import { useRouter } from 'next/router'
 import { Input, Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator, Container, Text, Button, ButtonGroup, Divider, Stack, Box, Badge, Checkbox, StatHelpText } from '@chakra-ui/react'
 
 
@@ -10,6 +11,11 @@ export default function sessionDetails({ data }) {
 
     const invoices = data.invoices
     console.log(invoices)
+    const router = useRouter()
+
+    if (router.isFallback) {
+        return <div>Loading...</div>
+    }
     const client = createApolloClient()
 
     var pid, pstatus
@@ -70,7 +76,7 @@ export default function sessionDetails({ data }) {
                 <p>{data.date}</p>
                 <Divider orientation='horizontal' />
                 {invoices.map((item) => (
-                    
+
                     <Box key={item.id} p='6'>
                         <Text fontSize='xl' >{item.users.name}</Text>
                         <Text fontSize='s' >invoice: {item.id}</Text>
@@ -101,7 +107,7 @@ export default function sessionDetails({ data }) {
                     <Divider orientation='horizontal' />
                     <Stack spacing={3} >
                         <Text fontSize='xl'>Just rocked up?</Text>
-                                <HookForm vars={data}/>
+                        <HookForm vars={data} />
                     </Stack>
                 </Stack>
             </Stack>
@@ -132,7 +138,7 @@ export async function getStaticPaths() {
     }));
 
     // Send these id’s to Next. We have also set the fallback property to false  
-    return { paths, fallback: false };
+    return { paths, fallback: true };
 }
 
 // Now fetch just one session...
