@@ -45,9 +45,7 @@ export default function HookForm(data) {
             }
 
         })
-            .then(result => { console.log(result),
-                window.location.reload()
-             })
+            .then(result => { console.log(result) })
             .catch(error => { console.log(error) });
     }
 
@@ -64,6 +62,7 @@ export default function HookForm(data) {
         input_name = values.name
         console.log(input_email, input_name, session_id)
         await createInvoiceMutation()
+        window.location.reload()
         // window.location.reload()
          // asynchronously reset your form values
     }

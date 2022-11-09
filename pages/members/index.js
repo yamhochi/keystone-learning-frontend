@@ -27,13 +27,13 @@ export default function Members({ data, loading, error }) {
             <Heading size='lg' my='2'>All members</Heading>
             <Stack spacing={1}>
                 {data.map((item) => (
-                    <Link key={item.id} href="members/[id]" as= {`/members/${item.id}`}>{item.name}</Link>
-                    // <LinkBox as='Item' key={item.id} maxW='lg' p='2' borderWidth='1px' rounded='md' backgroundColor='#EDF2F7'>
+                    // <Link key={item.id} href="members/[id]" as= {`/members/${item.id}`}>{item.name}</Link> 
+                    <LinkBox as='Item' key={item.id} maxW='lg' p='2' borderWidth='1px' rounded='md' backgroundColor='#EDF2F7'>
 
-                    //     <LinkOverlay href={`/members/${item.id}`}>
-                    //         {item.name}item.id
-                    //     </LinkOverlay>
-                    // </LinkBox>
+                        <LinkOverlay href={`/members/${item.id}`}>
+                            {item.name}
+                        </LinkOverlay>
+                    </LinkBox>
 
                 ))}
             </Stack>
