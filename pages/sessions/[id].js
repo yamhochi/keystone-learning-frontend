@@ -4,9 +4,14 @@ import Link from "next/link";
 import HookForm from './Hookform'
 import { useRouter } from 'next/router'
 import { Input, Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator, Container, Text, Button, ButtonGroup, Divider, Stack, Box, Badge, Checkbox, StatHelpText } from '@chakra-ui/react'
+import { useState } from "react";
 
 
-export default function SessionDetails({ data }) {
+export default function SessionDetails({ data: initialData }) {
+    const [data, setData] = useState(initialData);
+
+    const onAddInvoice = invoice => setData({ ...data, invoices: [...data.invoices, invoice]})
+
     const router = useRouter()
 
     if (router.isFallback) {
@@ -106,7 +111,7 @@ export default function SessionDetails({ data }) {
                     <Divider orientation='horizontal' />
                     <Stack spacing={3} >
                         <Text fontSize='xl'>Just rocked up?</Text>
-                        <HookForm vars={data} />
+                        <HookForm vars={data} onAddInvoice={onAddInvoice} />
                     </Stack>
                 </Stack>
             </Stack>

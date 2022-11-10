@@ -23,6 +23,7 @@ export default function HookForm(data) {
             mutation: gql`  
         mutation createInvoiceMutation ($details:InvoiceCreateInput!){
             createInvoice(data:$details){
+              id
               paid
               sessions {id}
               users {
@@ -47,8 +48,6 @@ export default function HookForm(data) {
             }
 
         })
-            .then(result => { console.log(result) })
-            .catch(error => { console.log(error) });
     }
 
 
@@ -56,6 +55,7 @@ export default function HookForm(data) {
         handleSubmit,
         register,
         formState: { errors, isSubmitting },
+        reset,
     } = useForm()
 
     const onSubmit = async (values) => {
@@ -63,10 +63,10 @@ export default function HookForm(data) {
         input_email  = values.email
         input_name = values.name
         console.log(input_email, input_name, session_id)
-        await createInvoiceMutation()
-        router.reload(window.location.pathname)
-        // window.location.reload()
-         // asynchronously reset your form values
+        const res = await createInvoiceMutation()
+        const invoice = res.data.createInvoice
+        data.onAddInvoice(invoice)
+        reset();
     }
     
     return (
